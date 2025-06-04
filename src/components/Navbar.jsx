@@ -1,232 +1,217 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router";
+import React, { useContext, useEffect, useState } from "react";
+import { NavLink, Link, useNavigate } from "react-router";
+import { AuthContext } from "../contexts/AuthContext";
+import { FiMoon, FiSun, FiLogOut } from "react-icons/fi";
+import { Tooltip } from "react-tooltip";
+import Swal from "sweetalert2";
+import "react-tooltip/dist/react-tooltip.css";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [theme, setTheme] = useState(
+    () => localStorage.getItem("theme") || "light"
+  );
+  const [hover, setHover] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        Swal.fire("Logged out!", "", "success");
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.error("Logout Error:", err);
+      });
+  };
+
+  const navLinkClass = ({ isActive }) =>
+    isActive
+      ? "text-pink-500 font-bold border-b-2 border-pink-500"
+      : "text-gray-200 dark:text-white hover:text-pink-400";
 
   return (
-    <div className="bg-gray-900 sticky">
-      <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
-        <div className="relative flex items-center justify-between">
-          <a
-            href="/"
-            aria-label="Company"
-            title="Company"
-            className="inline-flex items-center"
+    <header className="bg-gradient-to-r from-purple-800 via-indigo-900 to-blue-900 sticky top-0 z-50 shadow-md">
+      <Tooltip id="navbar-tooltip" place="bottom" className="z-50" />
+      <div className="px-4 py-4 mx-auto max-w-screen-xl flex justify-between items-center">
+        <Link
+          to="/"
+          className="text-2xl font-bold text-gray-800 dark:text-white"
+        >
+          Serve<span className="text-purple-600 dark:text-pink-400">Now</span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center space-x-6">
+          <NavLink to="/" className={navLinkClass}>
+            Home
+          </NavLink>
+          <NavLink to="/posts" className={navLinkClass}>
+            All Posts
+          </NavLink>
+          {user && (
+            <>
+              <NavLink to="/dashboard" className={navLinkClass}>
+                Dashboard
+              </NavLink>
+              <NavLink to="/add-post" className={navLinkClass}>
+                Add Post
+              </NavLink>
+            </>
+          )}
+        </nav>
+
+        {/* Right Section */}
+        <div className="hidden lg:flex items-center space-x-4">
+          <button
+            onClick={toggleTheme}
+            className="text-xl"
+            data-tooltip-id="navbar-tooltip"
+            data-tooltip-content={theme === "dark" ? "Light Mode" : "Dark Mode"}
           >
-            <svg
-              className="w-8 text-teal-accent-400"
-              viewBox="0 0 24 24"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeMiterlimit="10"
-              stroke="currentColor"
-              fill="none"
-            >
-              <rect x="3" y="1" width="7" height="12" />
-              <rect x="3" y="17" width="7" height="6" />
-              <rect x="14" y="1" width="7" height="6" />
-              <rect x="14" y="11" width="7" height="12" />
-            </svg>
-            <span className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
-              Company
-            </span>
-          </a>
-          <ul className="flex items-center hidden space-x-8 lg:flex">
-            <li>
-              <a
-                href="/"
-                aria-label="Our product"
-                title="Our product"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-              >
-                Product
-              </a>
-            </li>
-            <li>
-              <a
-                href="/"
-                aria-label="Our product"
-                title="Our product"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-              >
-                Features
-              </a>
-            </li>
-            <li>
-              <a
-                href="/"
-                aria-label="Product pricing"
-                title="Product pricing"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-              >
-                Pricing
-              </a>
-            </li>
-            <li>
-              <a
-                href="/"
-                aria-label="About us"
-                title="About us"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-              >
-                About us
-              </a>
-            </li>
-          </ul>
-          <ul className="flex items-center space-x-8 lg:flex">
-            <li>
+            {theme === "dark" ? <FiSun /> : <FiMoon />}
+          </button>
+
+          {!user ? (
+            <>
               <NavLink
                 to="/login"
-                href="/"
-                className="btn btn-primary inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                aria-label="Sign up"
-                title="Sign up"
+                className="px-4 py-1 bg-blue-600 rounded hover:bg-blue-700"
               >
-                login
+                Login
               </NavLink>
               <NavLink
                 to="/register"
-                href="/"
-                className="btn btn-primary inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                aria-label="Sign up"
-                title="Sign up"
+                className="px-4 py-1 bg-pink-500 rounded hover:bg-pink-600"
               >
-                register
+                Register
               </NavLink>
-            </li>
-          </ul>
-          <div className="lg:hidden">
-            <button
-              aria-label="Open Menu"
-              title="Open Menu"
-              className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline"
-              onClick={() => setIsMenuOpen(true)}
+            </>
+          ) : (
+            <div
+              className="relative group"
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
             >
-              <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="M23,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,13,23,13z"
-                />
-                <path
-                  fill="currentColor"
-                  d="M23,6H1C0.4,6,0,5.6,0,5s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,6,23,6z"
-                />
-                <path
-                  fill="currentColor"
-                  d="M23,20H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,20,23,20z"
-                />
-              </svg>
-            </button>
-            {isMenuOpen && (
-              <div className="absolute top-0 left-0 w-full">
-                <div className="p-5 bg-white border rounded shadow-sm">
-                  <div className="flex items-center justify-between mb-4">
-                    <div>
-                      <a
-                        href="/"
-                        aria-label="Company"
-                        title="Company"
-                        className="inline-flex items-center"
-                      >
-                        <svg
-                          className="w-8 text-deep-purple-accent-400"
-                          viewBox="0 0 24 24"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeMiterlimit="10"
-                          stroke="currentColor"
-                          fill="none"
-                        >
-                          <rect x="3" y="1" width="7" height="12" />
-                          <rect x="3" y="17" width="7" height="6" />
-                          <rect x="14" y="1" width="7" height="6" />
-                          <rect x="14" y="11" width="7" height="12" />
-                        </svg>
-                        <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                          Company
-                        </span>
-                      </a>
-                    </div>
-                    <div>
-                      <button
-                        aria-label="Close Menu"
-                        title="Close Menu"
-                        className="p-2 -mt-2 -mr-2 transition duration-200 rounded hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
-                          <path
-                            fill="currentColor"
-                            d="M19.7,4.3c-0.4-0.4-1-0.4-1.4,0L12,10.6L5.7,4.3c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4l6.3,6.3l-6.3,6.3 c-0.4,0.4-0.4,1,0,1.4C4.5,19.9,4.7,20,5,20s0.5-0.1,0.7-0.3l6.3-6.3l6.3,6.3c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3 c0.4-0.4,0.4-1,0-1.4L13.4,12l6.3-6.3C20.1,5.3,20.1,4.7,19.7,4.3z"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                  <nav>
-                    <ul className="space-y-4">
-                      <li>
-                        <a
-                          href="/"
-                          aria-label="Our product"
-                          title="Our product"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
-                          Product
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/"
-                          aria-label="Our product"
-                          title="Our product"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
-                          Features
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/"
-                          aria-label="Product pricing"
-                          title="Product pricing"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
-                          Pricing
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/"
-                          aria-label="About us"
-                          title="About us"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
-                          About us
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/"
-                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                          aria-label="Sign up"
-                          title="Sign up"
-                        >
-                          Sign up
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
+              <img
+                src={user?.photoURL}
+                referrerPolicy="no-referrer"
+                alt="profile"
+                className="w-10 h-10 rounded-full border-2 border-white cursor-pointer"
+                data-tooltip-id="navbar-tooltip"
+                data-tooltip-content={user.displayName || "User"}
+              />
+              {hover && (
+                <div className="absolute right-0 mt-3 w-56 bg-white dark:bg-gray-800 text-black dark:text-white shadow-lg rounded-xl p-4 z-50">
+                  <p className="text-sm font-semibold">{user.displayName}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-300 mb-3">
+                    {user.email}
+                  </p>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full px-4 py-2 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+                  >
+                    <FiLogOut className="inline mr-2" /> Logout
+                  </button>
                 </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Mobile Menu Button */}
+        <div className="lg:hidden">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-2xl"
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Dropdown */}
+      {isMenuOpen && (
+        <div className="lg:hidden bg-white dark:bg-gray-800 px-4 py-4 z-50">
+          <ul className="flex flex-col space-y-4 mb-4">
+            <NavLink to="/" className={navLinkClass}>
+              Home
+            </NavLink>
+            <NavLink to="/posts" className={navLinkClass}>
+              All Posts
+            </NavLink>
+            {user && (
+              <>
+                <NavLink to="/dashboard" className={navLinkClass}>
+                  Dashboard
+                </NavLink>
+                <NavLink to="/add-post" className={navLinkClass}>
+                  Add Post
+                </NavLink>
+              </>
+            )}
+            {!user && (
+              <>
+                <NavLink to="/login" className="text-black dark:text-white">
+                  Login
+                </NavLink>
+                <NavLink to="/register" className="text-black dark:text-white">
+                  Register
+                </NavLink>
+              </>
+            )}
+          </ul>
+
+          <div className="flex items-center justify-between">
+            <button
+              onClick={toggleTheme}
+              className="text-xl text-black dark:text-white"
+            >
+              {theme === "dark" ? <FiSun /> : <FiMoon />}
+            </button>
+
+            {user && (
+              <div
+                className="relative"
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
+              >
+                <img
+                  src={user?.photoURL}
+                  alt="profile"
+                  className="w-10 h-10 rounded-full border-2 border-white cursor-pointer"
+                  referrerPolicy="no-referrer"
+                />
+                {hover && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 text-black dark:text-white rounded shadow-md z-50 p-3">
+                    <p className="text-sm font-semibold mb-1">
+                      {user.displayName}
+                    </p>
+                    <p className="text-xs mb-2">{user.email}</p>
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-2 text-sm hover:text-red-600"
+                    >
+                      <FiLogOut /> Logout
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </header>
   );
 };
 

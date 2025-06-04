@@ -1,9 +1,80 @@
-import React from 'react';
 
 const ExtraSection1 = () => {
+
+const teamMembers = [
+  {
+    name: "Ayesha Rahman",
+    role: "Community Outreach Lead",
+    photo: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
+  },
+  {
+    name: "Nayeem Hossain",
+    role: "Volunteer Coordinator",
+    photo: "https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg",
+  },
+  {
+    name: "Tania Akter",
+    role: "Events & Campaign Manager",
+    photo: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg",
+  },
+  {
+    name: "Fahim Rahman",
+    role: "Partnership & Sponsorship Lead",
+    photo: "https://images.pexels.com/photos/3747435/pexels-photo-3747435.jpeg",
+  },
+  {
+    name: "Jannat Karim",
+    role: "UX/UI Designer",
+    photo: "https://images.pexels.com/photos/3785077/pexels-photo-3785077.jpeg",
+  },
+  {
+    name: "Ashfaq Ahmed",
+    role: "Backend Developer",
+    photo: "https://images.pexels.com/photos/3931603/pexels-photo-3931603.jpeg",
+  },
+  {
+    name: "Simran Kabir",
+    role: "Frontend Developer",
+    photo: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg",
+  },
+  {
+    name: "Tanvir Hasan",
+    role: "Marketing & Communication",
+    photo: "https://images.pexels.com/photos/3931553/pexels-photo-3931553.jpeg",
+  },
+];
+
+
+
     return (
         <div>
-            
+
+    <section className="py-16 bg-white text-center">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-4xl font-bold text-gray-800 mb-4">Meet Our Core Team</h2>
+        <p className="text-gray-500 mb-12 max-w-xl mx-auto">
+          Behind ServeNow is a group of passionate individuals dedicated to empowering volunteers, organizing impactful campaigns, and building bridges between communities and causes.
+        </p>
+        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {teamMembers.map((member, index) => (
+            <div
+              key={index}
+              className="bg-white border border-gray-200 rounded-2xl shadow-md p-6 hover:shadow-lg transition duration-300"
+            >
+              <img
+                src={member.photo}
+                alt={member.name}
+                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-blue-200"
+              />
+              <h3 className="text-lg font-semibold text-gray-800">{member.name}</h3>
+              <p className="text-sm text-gray-500 mt-1">{member.role}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
         </div>
     );
 };

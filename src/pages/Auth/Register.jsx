@@ -1,29 +1,57 @@
-import React, { use } from "react";
-import { Link } from "react-router";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext";
 import GoogleLogin from "../../components/GoogleLogin";
+import Swal from "sweetalert2";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
-  const {createUser}=use(AuthContext)
-const handleRegister=e=>{
-  e.preventDefault();
-  const form =e.target;
-  const name=form.name.value;
-  const email=form.email.value;
-  const password=form.password.value;
-  createUser(email,password)
-  .then(result=>{
-    console.log(result);
-  })
-  .catch(error=>{
-    console.log(error);
-  })
-}
+  const { createUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const photo = form.photo.value;
+    const password = form.password.value;
+
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+
+    if (!hasUppercase || !hasLowercase) {
+      Swal.fire({
+        icon: "warning",
+        title: "Weak Password",
+        text: "Password must include both uppercase and lowercase letters.",
+      });
+      return;
+    }
+
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+
+        updateProfile(user, {
+          displayName: name,
+          photoURL: photo,
+        }).then(() => {
+          Swal.fire("Success!", "Account created successfully", "success");
+          form.reset();
+          navigate("/");
+        });
+      })
+      .catch((error) => {
+        Swal.fire("Error!", error.message, "error");
+      });
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 via-blue-100 to-purple-100 px-4">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-lg">
+      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-lg my-6">
         <h2 className="text-3xl font-bold text-center text-purple-700">
           Create Account
         </h2>
@@ -31,20 +59,18 @@ const handleRegister=e=>{
           Join us and explore more!
         </p>
 
-        <form 
-        onSubmit={handleRegister}
-        className="space-y-5">
+        <form onSubmit={handleRegister} className="space-y-5">
           <div>
             <label
-              htmlFor="username"
+              htmlFor="name"
               className="block mb-1 text-sm font-medium text-gray-700"
             >
               Username
             </label>
             <input
               type="text"
-              id="username"
-              name="username"
+              id="name"
+              name="name"
               placeholder="Enter your username"
               className="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
               required
@@ -62,7 +88,24 @@ const handleRegister=e=>{
               type="email"
               id="email"
               name="email"
-              placeholder="Enter your Email"
+              placeholder="Enter your email"
+              className="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              required
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="photo"
+              className="block mb-1 text-sm font-medium text-gray-700"
+            >
+              Photo URL
+            </label>
+            <input
+              type="text"
+              id="photo"
+              name="photo"
+              placeholder="Enter your photo URL"
               className="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
               required
             />
@@ -76,13 +119,24 @@ const handleRegister=e=>{
               Password
             </label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
               placeholder="Enter your password"
               className="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
               required
             />
+            <div className="mt-1">
+              <input
+                type="checkbox"
+                id="togglePassword"
+                onChange={() => setShowPassword(!showPassword)}
+                className="mr-2"
+              />
+              <label htmlFor="togglePassword" className="text-sm text-gray-600">
+                Show Password
+              </label>
+            </div>
           </div>
 
           <button
@@ -100,7 +154,7 @@ const handleRegister=e=>{
         </div>
 
         {/* Google Login Button */}
-        <GoogleLogin></GoogleLogin>
+        <GoogleLogin />
 
         <p className="text-sm text-center text-gray-600">
           Already have an account?{" "}

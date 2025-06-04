@@ -1,16 +1,19 @@
-import React, { use } from "react";
+import React, { useContext, useState } from "react";
 import { FaGoogle, FaGithub, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext";
-import GoogleLogin from "../../components/GoogleLogin"
+import GoogleLogin from "../../components/GoogleLogin";
 
 const Login = () => {
-  const { signinUser } = use(AuthContext);
+  const { signinUser } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+
     signinUser(email, password)
       .then((result) => {
         console.log(result);
@@ -19,6 +22,7 @@ const Login = () => {
         console.log(error);
       });
   };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 via-blue-100 to-purple-100 px-4">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-lg">
@@ -33,14 +37,15 @@ const Login = () => {
               htmlFor="email"
               className="block mb-1 text-sm font-medium text-gray-700"
             >
-              email
+              Email
             </label>
             <input
-              type="text"
-              id="username"
+              type="email"
+              id="email"
               name="email"
-              placeholder="Enter your username"
+              placeholder="Enter your email"
               className="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              required
             />
           </div>
 
@@ -52,13 +57,27 @@ const Login = () => {
               Password
             </label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
               placeholder="Enter your password"
               className="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              required
             />
-            <div className="text-right mt-2 text-sm">
+
+            <div className="flex justify-between items-center mt-2 text-sm">
+              <div>
+                <input
+                  type="checkbox"
+                  id="togglePassword"
+                  onChange={() => setShowPassword(!showPassword)}
+                  className="mr-2"
+                />
+                <label htmlFor="togglePassword" className="text-gray-600">
+                  Show Password
+                </label>
+              </div>
+
               <Link
                 to="/forgot-password"
                 className="text-purple-600 hover:underline"
@@ -82,9 +101,8 @@ const Login = () => {
           <div className="w-full h-px bg-gray-300"></div>
         </div>
 
-        <div className="flex justify-center gap-4 ">
-          {/* google login */}
-          <GoogleLogin></GoogleLogin>
+        <div className="flex justify-center gap-4">
+          <GoogleLogin />
         </div>
 
         <p className="text-sm text-center text-gray-600">
