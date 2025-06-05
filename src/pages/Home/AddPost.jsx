@@ -31,18 +31,31 @@ const AddPost = () => {
     };
 
     try {
-      console.log('Post submitted:', newPost);
-      Swal.fire('Success!', 'Your volunteer post has been added.', 'success');
-      setFormData({
-        thumbnail: '',
-        title: '',
-        description: '',
-        category: '',
-        location: '',
-        volunteersNeeded: '',
+      const res = await fetch('http://localhost:3000/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newPost),
       });
-      setStartDate(new Date());
+
+      const data = await res.json();
+      if (data.insertedId || data.acknowledged) {
+        Swal.fire('Success!', 'Your volunteer post has been added.', 'success');
+        setFormData({
+          thumbnail: '',
+          title: '',
+          description: '',
+          category: '',
+          location: '',
+          volunteersNeeded: '',
+        });
+        setStartDate(new Date());
+      } else {
+        throw new Error('Failed to insert data');
+      }
     } catch (err) {
+      console.error(err);
       Swal.fire('Error!', 'Something went wrong.', 'error');
     }
   };
