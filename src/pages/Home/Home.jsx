@@ -7,6 +7,8 @@ const Home = () => {
     return (
         <div>
             <Hero></Hero>
+
+            
             <ExtraSection1></ExtraSection1>
             <ExtraSection2></ExtraSection2>
         </div>

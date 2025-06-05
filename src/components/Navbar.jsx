@@ -56,16 +56,16 @@ const Navbar = () => {
           <NavLink to="/" className={navLinkClass}>
             Home
           </NavLink>
-          <NavLink to="/posts" className={navLinkClass}>
-            All Posts
+          <NavLink to="/add-post" className={navLinkClass}>
+            Add Post
           </NavLink>
           {user && (
             <>
-              <NavLink to="/dashboard" className={navLinkClass}>
-                Dashboard
+              <NavLink to="/all-post" className={navLinkClass}>
+               All Posts
               </NavLink>
-              <NavLink to="/add-post" className={navLinkClass}>
-                Add Post
+              <NavLink to="/my-post" className={navLinkClass}>
+                My Post
               </NavLink>
             </>
           )}
@@ -147,16 +147,16 @@ const Navbar = () => {
             <NavLink to="/" className={navLinkClass}>
               Home
             </NavLink>
-            <NavLink to="/posts" className={navLinkClass}>
-              All Posts
+            <NavLink to="/add-post" className={navLinkClass}>
+              Add Post
             </NavLink>
             {user && (
               <>
-                <NavLink to="/dashboard" className={navLinkClass}>
-                  Dashboard
+                <NavLink to="/all-post" className={navLinkClass}>
+                  All posts
                 </NavLink>
-                <NavLink to="/add-post" className={navLinkClass}>
-                  Add Post
+                <NavLink to="/my-post" className={navLinkClass}>
+                  My Posts
                 </NavLink>
               </>
             )}

@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Banner = () => {
+const AllPosts = () => {
     return (
         <div>
-
+            
         </div>
     );
 };
 
-export default Banner;
+export default AllPosts;
