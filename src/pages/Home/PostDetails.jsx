@@ -1,12 +1,15 @@
 import { useParams } from "react-router";
-import { useEffect, useState, use } from "react";
+import { useEffect, useState, useContext } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../contexts/AuthContext";
+import VolunteerModal from "./VolunteerModal";
 
 const PostDetails = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
-  const { user } = use(AuthContext);
+  const [showModal, setShowModal] = useState(false); 
+  const { user } = useContext(AuthContext);
+
   useEffect(() => {
     fetch(`http://localhost:3000/posts/${id}`)
       .then((res) => res.json())
@@ -14,10 +17,7 @@ const PostDetails = () => {
       .catch((err) => console.error("Error loading post:", err));
   }, [id]);
 
-if (!post) {
-  return <div className="text-center py-10">Loading...</div>;
-}
-
+  if (!post) return <div className="text-center py-10">Loading...</div>;
 
   const {
     thumbnail,
@@ -32,11 +32,11 @@ if (!post) {
   } = post;
 
   const handleVolunteerClick = () => {
-    Swal.fire(
-      "Modal/Route",
-      "You can show a modal or navigate to a new route from here",
-      "info"
-    );
+    if (!user) {
+      Swal.fire("Unauthorized", "Please log in first", "warning");
+      return;
+    }
+    setShowModal(true); // ✅ Show modal
   };
 
   return (
@@ -52,21 +52,11 @@ if (!post) {
       <p className="text-gray-700 dark:text-gray-300 mb-4">{description}</p>
 
       <ul className="text-gray-600 dark:text-gray-300 space-y-1 mb-6">
-        <li>
-          <strong>Category:</strong> {category}
-        </li>
-        <li>
-          <strong>Location:</strong> {location}
-        </li>
-        <li>
-          <strong>Volunteers Needed:</strong> {volunteersNeeded}
-        </li>
-        <li>
-          <strong>Deadline:</strong> {new Date(deadline).toLocaleDateString()}
-        </li>
-        <li>
-          <strong>Organizer:</strong> {organizerName} ({organizerEmail})
-        </li>
+        <li><strong>Category:</strong> {category}</li>
+        <li><strong>Location:</strong> {location}</li>
+        <li><strong>Volunteers Needed:</strong> {volunteersNeeded}</li>
+        <li><strong>Deadline:</strong> {new Date(deadline).toLocaleDateString()}</li>
+        <li><strong>Organizer:</strong> {organizerName} ({organizerEmail})</li>
       </ul>
 
       <button
@@ -75,6 +65,10 @@ if (!post) {
       >
         Be a Volunteer
       </button>
+
+      {showModal && (
+        <VolunteerModal post={post} onClose={() => setShowModal(false)}></VolunteerModal>
+      )}
     </div>
   );
 };
