@@ -7,14 +7,19 @@ import VolunteerModal from "./VolunteerModal";
 const PostDetails = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
   const { user } = useContext(AuthContext);
 
-  useEffect(() => {
+  // 🔁 Fetch Function (Reuseable)
+  const fetchPostDetails = () => {
     fetch(`http://localhost:3000/posts/${id}`)
       .then((res) => res.json())
       .then((data) => setPost(data))
       .catch((err) => console.error("Error loading post:", err));
+  };
+
+  useEffect(() => {
+    fetchPostDetails();
   }, [id]);
 
   if (!post) return <div className="text-center py-10">Loading...</div>;
@@ -36,22 +41,26 @@ const PostDetails = () => {
       Swal.fire("Unauthorized", "Please log in first", "warning");
       return;
     }
-    setShowModal(true); // ✅ Show modal
+    setShowModal(true);
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-white dark:bg-gray-900 shadow-md rounded p-6 my-8">
+    <div >
+            <h1 className="text-4xl flex justify-center items-center w-full text-pink-600 pt-6">volunteer Details</h1>
+
+    <div className="max-w-3xl mx-auto  shadow-md rounded p-6 my-8">
+
       <img
         src={thumbnail}
         alt={title}
         className="w-full h-64 object-cover rounded mb-4"
       />
-      <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">
+      <h2 className="text-3xl font-bold  mb-4">
         {title}
       </h2>
-      <p className="text-gray-700 dark:text-gray-300 mb-4">{description}</p>
+      <p className=" mb-4">{description}</p>
 
-      <ul className="text-gray-600 dark:text-gray-300 space-y-1 mb-6">
+      <ul className=" space-y-1 mb-6">
         <li><strong>Category:</strong> {category}</li>
         <li><strong>Location:</strong> {location}</li>
         <li><strong>Volunteers Needed:</strong> {volunteersNeeded}</li>
@@ -66,9 +75,17 @@ const PostDetails = () => {
         Be a Volunteer
       </button>
 
+      {/*  Modal */}
       {showModal && (
-        <VolunteerModal post={post} onClose={() => setShowModal(false)}></VolunteerModal>
+        <VolunteerModal
+          post={post}
+          onClose={() => {
+            setShowModal(false);
+            fetchPostDetails(); // 🔁 Volunteers needed count update
+          }}
+        />
       )}
+    </div>
     </div>
   );
 };
