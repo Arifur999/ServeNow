@@ -49,25 +49,25 @@ const teamMembers = [
     return (
         <div>
 
-    <section className="py-16 bg-white text-center">
+    <section className="py-16 text-center">
       <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-gray-800 mb-4">Meet Our Core Team</h2>
-        <p className="text-gray-500 mb-12 max-w-xl mx-auto">
+        <h2 className="text-4xl font-bold  mb-4 text-pink-500">Meet Our Core Team</h2>
+        <p className=" mb-12 max-w-xl mx-auto">
           Behind ServeNow is a group of passionate individuals dedicated to empowering volunteers, organizing impactful campaigns, and building bridges between communities and causes.
         </p>
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className="bg-white border border-gray-200 rounded-2xl shadow-md p-6 hover:shadow-lg transition duration-300"
+              className=" border border-gray-200 rounded-2xl shadow-md p-6 hover:shadow-lg transition duration-300"
             >
               <img
                 src={member.photo}
                 alt={member.name}
                 className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-blue-200"
               />
-              <h3 className="text-lg font-semibold text-gray-800">{member.name}</h3>
-              <p className="text-sm text-gray-500 mt-1">{member.role}</p>
+              <h3 className="text-lg font-semibold ">{member.name}</h3>
+              <p className="text-sm  mt-1">{member.role}</p>
             </div>
           ))}
         </div>

@@ -30,7 +30,7 @@ const VolunteerModal = ({ post, onClose }) => {
       .then((res) => res.json())
       .then(() => {
         Swal.fire("Success", "Volunteer request submitted", "success");
-        onClose(); // Close modal
+        onClose(); 
       });
   };
 

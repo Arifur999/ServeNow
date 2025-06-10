@@ -1,12 +1,14 @@
 import React, { useContext, useState } from "react";
 import { FaGoogle, FaGithub, FaTwitter } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext";
 import GoogleLogin from "../../components/GoogleLogin";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { signinUser } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -16,10 +18,22 @@ const Login = () => {
 
     signinUser(email, password)
       .then((result) => {
-        console.log(result);
+        form.reset();
+        Swal.fire({
+          title: 'Success!',
+          text: 'Login successful',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        });
+        navigate('/');
       })
       .catch((error) => {
-        console.log(error);
+        Swal.fire({
+          title: 'Error!',
+          text: error.message,
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
       });
   };
 

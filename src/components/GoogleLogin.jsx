@@ -1,17 +1,31 @@
 import React, { use } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router';
+import Swal from 'sweetalert2';
 
 const GoogleLogin = () => {
+  const navigate = useNavigate();
 
 const {googleLogin}=use(AuthContext)
 const handleGoogle=()=>{
     googleLogin()
-    .then(result=>{
-        console.log(result);
-    })
-    .catch(error=>{
-console.log(error);
-    })
+    .then((result) => {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Signed in with Google successfully',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        });
+        navigate('/');
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: 'Error!',
+          text: error.message,
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+      });
 }
 
     return (

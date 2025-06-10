@@ -81,7 +81,7 @@ const PostDetails = () => {
           post={post}
           onClose={() => {
             setShowModal(false);
-            fetchPostDetails(); // 🔁 Volunteers needed count update
+            fetchPostDetails(); 
           }}
         />
       )}

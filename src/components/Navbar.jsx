@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
-import {  FiLogOut } from "react-icons/fi";
+import { FiLogOut } from "react-icons/fi";
 import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
 import "react-tooltip/dist/react-tooltip.css";
@@ -11,7 +11,6 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hover, setHover] = useState(false);
   const navigate = useNavigate();
-
 
   const handleLogout = () => {
     logOut()
@@ -45,14 +44,15 @@ const Navbar = () => {
           <NavLink to="/" className={navLinkClass}>
             Home
           </NavLink>
-          <NavLink to="/add-post" className={navLinkClass}>
-            Add Post
+          <NavLink to="/all-post" className={navLinkClass}>
+            All Posts
           </NavLink>
           {user && (
             <>
-              <NavLink to="/all-post" className={navLinkClass}>
-                All Posts
+              <NavLink to="/add-post" className={navLinkClass}>
+                Add Post
               </NavLink>
+
               <NavLink to="/my-post" className={navLinkClass}>
                 My Post
               </NavLink>
@@ -150,13 +150,14 @@ const Navbar = () => {
             <NavLink to="/" className={navLinkClass}>
               Home
             </NavLink>
-            <NavLink to="/add-post" className={navLinkClass}>
-              Add Post
+            <NavLink to="/all-post" className={navLinkClass}>
+              All posts
             </NavLink>
+
             {user && (
               <>
-                <NavLink to="/all-post" className={navLinkClass}>
-                  All posts
+                <NavLink to="/add-post" className={navLinkClass}>
+                  Add Post
                 </NavLink>
                 <NavLink to="/my-post" className={navLinkClass}>
                   My Posts

@@ -1,32 +1,38 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { FaThLarge, FaList, FaSearch } from "react-icons/fa";
+import { Link, useNavigate } from "react-router";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const AllPosts = () => {
+    const {_id}=use(AuthContext)
   const [posts, setPosts] = useState([]);
   const [viewMode, setViewMode] = useState("card");
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/posts")
-      .then((res) => res.json())
-      .then((data) => setPosts(data));
-  }, []);
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:3000/posts?search=${searchTerm}`
+        );
+        const data = await res.json();
+        setPosts(data);
+      } catch (error) {
+        console.error("Failed to fetch posts:", error);
+      }
+    };
 
-  const filteredPosts = posts.filter((post) =>
-    post.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+    fetchPosts();
+  }, [searchTerm]);
 
   return (
     <div className="p-4 max-w-7xl mx-auto">
       {/* Header with controls */}
-
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
         {/* Title */}
         <div>
-          <h1 className="text-2xl font-bold text-gray-800 ">
-            All Volunteers
-          </h1>
+          <h1 className="text-2xl font-bold text-pink-600">All Volunteers</h1>
         </div>
 
         {/* Search Input */}
@@ -38,7 +44,7 @@ const AllPosts = () => {
           <input
             type="text"
             placeholder="Search by title..."
-            className="w-full pl-10 pr-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400   "
+            className="w-full pl-10 pr-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -48,9 +54,9 @@ const AllPosts = () => {
         <div className="flex gap-3 text-xl">
           <button
             onClick={() => setViewMode("card")}
-            className={`p-2 rounded hover:bg-blue-100  ${
+            className={`p-2 rounded hover:bg-blue-100 ${
               viewMode === "card"
-                ? "text-blue-600 bg-blue-100 "
+                ? "text-blue-600 bg-blue-100"
                 : "text-gray-400"
             }`}
           >
@@ -58,7 +64,7 @@ const AllPosts = () => {
           </button>
           <button
             onClick={() => setViewMode("table")}
-            className={`p-2 rounded hover:bg-blue-100 d ${
+            className={`p-2 rounded hover:bg-blue-100 ${
               viewMode === "table"
                 ? "text-blue-600 bg-blue-100"
                 : "text-gray-400"
@@ -72,29 +78,35 @@ const AllPosts = () => {
       {/* Card View */}
       {viewMode === "card" && (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredPosts.map((post) => (
+          {posts.map((post) => (
             <div
               key={post._id}
-              className="border rounded shadow p-4  "
+              className="border border-gray-300 rounded shadow p-4 flex flex-col justify-between"
             >
-              <img
-                src={post.thumbnail}
-                alt={post.title}
-                className="h-40 w-full object-cover rounded mb-3"
-              />
-              <h3 className="text-lg font-semibold  ">
-                {post.title}
-              </h3>
-              <p className="text-sm ">
-                {post.description.slice(0, 60)}...
-              </p>
-              <p className="text-sm mt-1">
-                <strong>Volunteers:</strong> {post.volunteersNeeded}
-              </p>
-              <p className="text-sm">
-                <strong>Deadline:</strong>{" "}
-                {new Date(post.deadline).toLocaleDateString()}
-              </p>
+              <div>
+                <img
+                  src={post.thumbnail}
+                  alt={post.title}
+                  className="h-40 w-full object-cover rounded mb-3"
+                />
+                <h3 className="text-lg font-semibold">{post.title}</h3>
+                <p className="text-sm">{post.description.slice(0, 60)}...</p>
+                <p className="text-sm mt-1">
+                  <strong>Volunteers:</strong> {post.volunteersNeeded}
+                </p>
+                <p className="text-sm">
+                  <strong>Deadline:</strong>{" "}
+                  {new Date(post.deadline).toLocaleDateString()}
+                </p>
+              </div>
+
+              {/* Details Button */}
+              <Link
+                to={`/posts/${post._id}`}
+                className="inline-block mt-2 bg-pink-600 text-white px-4 py-2 rounded text-center hover:bg-pink-700 transition"
+              >
+                View Details
+              </Link>
             </div>
           ))}
         </div>
@@ -104,7 +116,7 @@ const AllPosts = () => {
       {viewMode === "table" && (
         <div className="overflow-x-auto mt-4">
           <table className="min-w-full text-sm border">
-            <thead className="bg-gray-100 dark:bg-gray-700 text-left">
+            <thead className=" text-left">
               <tr>
                 <th className="p-2">Image</th>
                 <th className="p-2">Title</th>
@@ -114,11 +126,8 @@ const AllPosts = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredPosts.map((post) => (
-                <tr
-                  key={post._id}
-                  className="border-b hover:bg-gray-50 dark:hover:bg-gray-800"
-                >
+              {posts.map((post) => (
+                <tr key={post._id} className="border-b ">
                   <td className="p-2">
                     <img
                       src={post.thumbnail}

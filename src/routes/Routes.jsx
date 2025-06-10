@@ -7,6 +7,7 @@ import AddPost from "../pages/Home/AddPost";
 import AllPosts from "../pages/Home/AllPosts";
 import MyPosts from "../pages/Home/MyPosts";
 import PostDetails from "../pages/Home/PostDetails";
+import PrivateRoute from "../components/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,11 +29,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-post",
-        Component: AddPost,
+        element:<PrivateRoute>
+          <AddPost></AddPost>
+        </PrivateRoute>,
       },
       {
         path: "/posts/:id",
-        Component: PostDetails,
+        element:<PrivateRoute>
+          <PostDetails></PostDetails>
+        </PrivateRoute>,
+        
       },
       {
         path: "/all-post",
@@ -40,7 +46,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-post",
-        Component: MyPosts,
+        element:<PrivateRoute>
+         <MyPosts></MyPosts>
+        </PrivateRoute>,
       },
     ],
   },

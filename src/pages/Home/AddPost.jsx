@@ -61,11 +61,11 @@ const AddPost = () => {
   };
 
   return (
-    <div className="max-w-4xl my-8 mx-auto px-4 py-10 bg-gray-200 dark:bg-gray-900 rounded-lg shadow-md">
+    <div className="max-w-4xl my-8 mx-auto px-4 py-10  rounded-lg shadow-md">
       <h2 className="text-3xl font-bold text-center text-pink-600 mb-2">
         Add Volunteer Need Post
       </h2>
-      <p className="text-center text-gray-600 dark:text-gray-300 mb-8">
+      <p className="text-center  mb-8">
         Share your need and help gather amazing volunteers.
       </p>
 
@@ -74,7 +74,7 @@ const AddPost = () => {
         className="grid gap-6 sm:grid-cols-1 md:grid-cols-2"
       >
         <div>
-          <label className="block text-gray-700 dark:text-gray-200 font-bold mb-2">
+          <label className="block bg-base-200 font-bold mb-2">
             Thumbnail URL
           </label>
           <input
@@ -83,12 +83,12 @@ const AddPost = () => {
             value={formData.thumbnail}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400 transition bg-white dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400 transition "
           />
         </div>
 
         <div>
-          <label className="block text-gray-700 dark:text-gray-200 font-bold mb-2">
+          <label className="block bg-base-200 font-bold mb-2">
             Post Title
           </label>
           <input
@@ -97,12 +97,12 @@ const AddPost = () => {
             value={formData.title}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400 transition bg-white dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400 transition "
           />
         </div>
 
         <div className="md:col-span-2">
-          <label className="block text-gray-700 dark:text-gray-200 font-bold mb-2">
+          <label className="block bg-base-200 font-bold mb-2">
             Description
           </label>
           <textarea
@@ -111,12 +111,12 @@ const AddPost = () => {
             onChange={handleChange}
             rows="4"
             required
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400 transition bg-white dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400 transition "
           ></textarea>
         </div>
 
         <div>
-          <label className="block text-gray-700 dark:text-gray-200 font-bold mb-2">
+          <label className="block bg-base-200 font-bold mb-2">
             Category
           </label>
           <select
@@ -124,7 +124,7 @@ const AddPost = () => {
             value={formData.category}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400 transition bg-white dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400 transition "
           >
             <option value="">Select a category</option>
             <option value="healthcare">Healthcare</option>
@@ -135,7 +135,7 @@ const AddPost = () => {
         </div>
 
         <div>
-          <label className="block text-gray-700 dark:text-gray-200 font-bold mb-2">
+          <label className="block bg-base-200 font-bold mb-2">
             Location
           </label>
           <input
@@ -144,12 +144,12 @@ const AddPost = () => {
             value={formData.location}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400 transition bg-white dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400 transition "
           />
         </div>
 
         <div>
-          <label className="block text-gray-700 dark:text-gray-200 font-bold mb-2">
+          <label className="block bg-base-200 font-bold mb-2">
             No. of Volunteers Needed
           </label>
           <input
@@ -159,43 +159,43 @@ const AddPost = () => {
             onChange={handleChange}
             required
             min="1"
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400 transition bg-white dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400 transition "
           />
         </div>
 
         <div>
-          <label className="block text-gray-700 dark:text-gray-200 font-bold mb-2">
+          <label className="block bg-base-200 font-bold mb-2">
             Deadline
           </label>
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400 transition bg-white dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400 transition "
             required
           />
         </div>
 
         <div>
-          <label className="block text-gray-700 dark:text-gray-200 font-bold mb-2">
+          <label className="block bg-base-200 font-bold mb-2">
             Organizer Name
           </label>
           <input
             type="text"
             value={user?.displayName || ''}
             readOnly
-            className="w-full px-3 py-2 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border rounded "
           />
         </div>
 
         <div>
-          <label className="block text-gray-700 dark:text-gray-200 font-bold mb-2">
+          <label className="block bg-base-200 font-bold mb-2">
             Organizer Email
           </label>
           <input
             type="email"
             value={user?.email || ''}
             readOnly
-            className="w-full px-3 py-2 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white"
+            className="w-full px-3 py-2 border rounded "
           />
         </div>
 
