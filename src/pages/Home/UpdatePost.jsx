@@ -17,7 +17,7 @@ const UpdatePost = () => {
     fetch(`http://localhost:3000/posts/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        data.deadline = new Date(data.deadline); // convert to Date object for DatePicker
+        data.deadline = new Date(data.deadline); 
         setFormData(data);
         setLoading(false);
       });
