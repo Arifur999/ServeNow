@@ -10,7 +10,6 @@ const PostDetails = () => {
   const [showModal, setShowModal] = useState(false);
   const { user } = useContext(AuthContext);
 
-  // 🔁 Fetch Function (Reuseable)
   const fetchPostDetails = () => {
     fetch(`http://localhost:3000/posts/${id}`)
       .then((res) => res.json())

@@ -4,6 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { Link } from "react-router";  // fixed here
 import { AuthContext } from "../../contexts/AuthContext";
+import Spinner from '../../components/Spinner';
 
 const MyPosts = () => {
   const { user, loading } = useContext(AuthContext);
@@ -27,7 +28,7 @@ const MyPosts = () => {
   }, [user?.email]);
 
   if (loading) {
-    return <p className="text-center mt-10">Loading user info...</p>;
+    return <Spinner></Spinner>
   }
 
   if (!user) {
