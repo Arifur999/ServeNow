@@ -8,6 +8,7 @@ import AllPosts from "../pages/Home/AllPosts";
 import MyPosts from "../pages/Home/MyPosts";
 import PostDetails from "../pages/Home/PostDetails";
 import PrivateRoute from "../components/PrivateRoute";
+import UpdatePost from "../pages/Home/UpdatePost";
 
 const router = createBrowserRouter([
   {
@@ -29,16 +30,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-post",
-        element:<PrivateRoute>
-          <AddPost></AddPost>
-        </PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <AddPost></AddPost>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/posts/:id",
-        element:<PrivateRoute>
-          <PostDetails></PostDetails>
-        </PrivateRoute>,
-        
+        element: (
+          <PrivateRoute>
+            <PostDetails></PostDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/all-post",
@@ -46,10 +50,21 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-post",
-        element:<PrivateRoute>
-         <MyPosts></MyPosts>
-        </PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <MyPosts></MyPosts>
+          </PrivateRoute>
+        ),
       },
+      {
+        path: "/update-post/:id",
+        element: (
+          <PrivateRoute>
+            <UpdatePost></UpdatePost>
+          </PrivateRoute>
+        ),
+      },
+      
     ],
   },
 ]);
