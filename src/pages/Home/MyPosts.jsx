@@ -2,37 +2,31 @@ import { useEffect, useState, useContext } from "react";
 import Swal from "sweetalert2";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { Link } from "react-router";  // fixed here
+import { Link } from "react-router"; // fixed here
 import { AuthContext } from "../../contexts/AuthContext";
-import Spinner from '../../components/Spinner';
+import Spinner from "../../components/Spinner";
 
 const MyPosts = () => {
   const { user, loading } = useContext(AuthContext);
   const [myPosts, setMyPosts] = useState([]);
-  const [myRequests, setMyRequests] = useState([]);
-
   useEffect(() => {
     if (!user?.email) return;
 
-    // Fetch My Volunteer Need Posts
-    fetch(`/volunteer-posts?email=${user.email}`)
-      .then((res) => res.json())
-      .then((data) => setMyPosts(data))
-      .catch(() => setMyPosts([]));
+    console.log("Fetching posts for:", user.email);
 
-    // Fetch My Volunteer Requests
-    fetch(`/volunteer-requests?email=${user.email}`)
+    fetch(`http://localhost:3000/volunteer-posts?email=${user.email}`)
       .then((res) => res.json())
-      .then((data) => setMyRequests(data))
-      .catch(() => setMyRequests([]));
+      .then((data) => {
+        console.log("My Posts:", data);
+        setMyPosts(data);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch posts:", error);
+        setMyPosts([]);
+      });
   }, [user?.email]);
-
   if (loading) {
-    return <Spinner></Spinner>
-  }
-
-  if (!user) {
-    return <p className="text-center mt-10">Please login to view your posts.</p>;
+    return <Spinner></Spinner>;
   }
 
   const handleDelete = (id) => {
@@ -44,42 +38,53 @@ const MyPosts = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`/volunteer-posts/${id}`, { method: "DELETE" })  // removed /api for consistency
-          .then((res) => res.json())
+        fetch(`http://localhost:3000/volunteer-posts/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => {
+            if (!res.ok) throw new Error("Failed to delete");
+            return res.json();
+          })
           .then((data) => {
             if (data.deletedCount > 0) {
               Swal.fire("Deleted!", "Your post has been deleted.", "success");
               setMyPosts((prev) => prev.filter((post) => post._id !== id));
             }
+          })
+          .catch((err) => {
+            console.error(err);
+            Swal.fire("Error", "Something went wrong!", "error");
           });
       }
     });
   };
 
-  const handleCancel = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You are about to cancel your request.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, cancel it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        fetch(`/volunteer-requests/${id}`, { method: "DELETE" })  // removed /api for consistency
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.deletedCount > 0) {
-              Swal.fire("Cancelled!", "Your request has been cancelled.", "success");
-              setMyRequests((prev) => prev.filter((req) => req._id !== id));
-            }
-          });
-      }
-    });
-  };
+  // const handleCancel = (id) => {
+  //   Swal.fire({
+  //     title: "Are you sure?",
+  //     text: "You are about to cancel your request.",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonText: "Yes, cancel it!",
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       fetch(`/volunteer-requests/${id}`, { method: "DELETE" })  // removed /api for consistency
+  //         .then((res) => res.json())
+  //         .then((data) => {
+  //           if (data.deletedCount > 0) {
+  //             Swal.fire("Cancelled!", "Your request has been cancelled.", "success");
+  //             setMyRequests((prev) => prev.filter((req) => req._id !== id));
+  //           }
+  //         });
+  //     }
+  //   });
+  // };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-semibold mb-6 text-center">Manage My Posts</h1>
+    <div className="container  p-4 w-11/12 mx-auto">
+      <h1 className="text-3xl font-semibold mb-6 text-center">
+        Manage My Posts
+      </h1>
 
       <Tabs>
         <TabList>
@@ -89,7 +94,9 @@ const MyPosts = () => {
 
         <TabPanel>
           {myPosts.length === 0 ? (
-            <p className="text-center text-gray-500">No volunteer need posts found.</p>
+            <p className="text-center text-gray-500">
+              No volunteer need posts found.
+            </p>
           ) : (
             <div className="overflow-x-auto">
               <table className="table w-full">
@@ -106,7 +113,10 @@ const MyPosts = () => {
                     <tr key={post._id}>
                       <td>{post.title}</td>
                       <td>{post.category}</td>
-                      <td>{new Date(post.deadline).toLocaleDateString()}</td>  {/* formatted */}
+                      <td>
+                        {new Date(post.deadline).toLocaleDateString()}
+                      </td>{" "}
+                      {/* formatted */}
                       <td>
                         <Link
                           to={`/update-post/${post._id}`}
@@ -129,7 +139,7 @@ const MyPosts = () => {
           )}
         </TabPanel>
 
-        <TabPanel>
+        {/* <TabPanel>
           {myRequests.length === 0 ? (
             <p className="text-center text-gray-500">No volunteer requests found.</p>
           ) : (
@@ -148,7 +158,7 @@ const MyPosts = () => {
                     <tr key={req._id}>
                       <td>{req.postTitle}</td>
                       <td>{req.organizerName}</td>
-                      <td>{new Date(req.deadline).toLocaleDateString()}</td> {/* formatted */}
+                      <td>{new Date(req.deadline).toLocaleDateString()}</td>
                       <td>
                         <button
                           onClick={() => handleCancel(req._id)}
@@ -163,7 +173,7 @@ const MyPosts = () => {
               </table>
             </div>
           )}
-        </TabPanel>
+        </TabPanel> */}
       </Tabs>
     </div>
   );
