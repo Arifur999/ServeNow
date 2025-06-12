@@ -15,7 +15,13 @@ const MyPosts = () => {
 
     console.log("Fetching posts for:", user.email);
 
-    fetch(`http://localhost:3000/volunteer-posts?email=${user.email}`)
+    fetch(`http://localhost:3000/volunteer-posts?email=${user.email}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${user.accessToken}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log("My Posts:", data);
@@ -68,8 +74,12 @@ const MyPosts = () => {
 
       <Tabs>
         <TabList className="flex space-x-4 overflow-x-auto whitespace-nowrap text-sm sm:text-base border-b border-gray-200 py-2">
-          <Tab className="px-4 py-2 cursor-pointer hover:text-pink-500 focus:outline-none focus:text-pink-600 react-tabs__tab">My Need Posts</Tab>
-          <Tab className="px-4 py-2 cursor-pointer hover:text-pink-500 focus:outline-none focus:text-pink-600 react-tabs__tab">My Request Posts</Tab>
+          <Tab className="px-4 py-2 cursor-pointer hover:text-pink-500 focus:outline-none focus:text-pink-600 react-tabs__tab">
+            My Need Posts
+          </Tab>
+          <Tab className="px-4 py-2 cursor-pointer hover:text-pink-500 focus:outline-none focus:text-pink-600 react-tabs__tab">
+            My Request Posts
+          </Tab>
         </TabList>
 
         <TabPanel>
@@ -95,7 +105,7 @@ const MyPosts = () => {
                       <td>{post.category}</td>
                       <td>
                         {new Date(post.deadline).toLocaleDateString()}
-                      </td>{" "}
+                      </td>
                       {/* formatted */}
                       <td>
                         <Link

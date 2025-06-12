@@ -11,7 +11,13 @@ const MyRequests = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/volunteer-requests?email=${user.email}`)
+    fetch(`http://localhost:3000/volunteer-requests?email=${user.email}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${user.accessToken}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setMyRequests(data);
