@@ -5,6 +5,7 @@ import { FiLogOut } from "react-icons/fi";
 import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
 import "react-tooltip/dist/react-tooltip.css";
+import logo from "../assets/logo_no_bg.png";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -34,9 +35,13 @@ const Navbar = () => {
       <div className="px-4 py-4 mx-auto max-w-screen-xl flex justify-between items-center">
         <Link
           to="/"
-          className="text-2xl font-bold text-gray-800 dark:text-white"
+          className="flex items-center  text-2xl font-bold text-gray-800 dark:text-white"
         >
-          Serve<span className="text-purple-600 dark:text-pink-400">Now</span>
+          <img className="w-20 h-20" src={logo} alt="Logo" />
+          <span>
+            Serve
+            <span className="text-purple-600 dark:text-pink-400">Now</span>
+          </span>
         </Link>
 
         {/* Desktop Navigation */}

@@ -67,9 +67,9 @@ const MyPosts = () => {
       </h1>
 
       <Tabs>
-        <TabList>
-          <Tab>My Need Posts</Tab>
-          <Tab>My Request Posts</Tab>
+        <TabList className="flex space-x-4 overflow-x-auto whitespace-nowrap text-sm sm:text-base border-b border-gray-200 py-2">
+          <Tab className="px-4 py-2 cursor-pointer hover:text-pink-500 focus:outline-none focus:text-pink-600 react-tabs__tab">My Need Posts</Tab>
+          <Tab className="px-4 py-2 cursor-pointer hover:text-pink-500 focus:outline-none focus:text-pink-600 react-tabs__tab">My Request Posts</Tab>
         </TabList>
 
         <TabPanel>

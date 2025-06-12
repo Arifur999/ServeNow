@@ -50,12 +50,12 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 via-blue-100 to-purple-100 px-4">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-lg my-6">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r  px-4">
+      <div className="w-full max-w-md p-8 space-y-6  rounded-2xl shadow-lg my-6">
         <h2 className="text-3xl font-bold text-center text-purple-700">
           Create Account
         </h2>
-        <p className="text-center text-sm text-gray-500">
+        <p className="text-center text-sm ">
           Join us and explore more!
         </p>
 
@@ -63,7 +63,7 @@ const Register = () => {
           <div>
             <label
               htmlFor="name"
-              className="block mb-1 text-sm font-medium text-gray-700"
+              className="block mb-1 text-sm font-medium "
             >
               Username
             </label>
@@ -80,7 +80,7 @@ const Register = () => {
           <div>
             <label
               htmlFor="email"
-              className="block mb-1 text-sm font-medium text-gray-700"
+              className="block mb-1 text-sm font-medium "
             >
               Email
             </label>
@@ -97,7 +97,7 @@ const Register = () => {
           <div>
             <label
               htmlFor="photo"
-              className="block mb-1 text-sm font-medium text-gray-700"
+              className="block mb-1 text-sm font-medium "
             >
               Photo URL
             </label>
@@ -114,7 +114,7 @@ const Register = () => {
           <div>
             <label
               htmlFor="password"
-              className="block mb-1 text-sm font-medium text-gray-700"
+              className="block mb-1 text-sm font-medium "
             >
               Password
             </label>
@@ -141,16 +141,16 @@ const Register = () => {
 
           <button
             type="submit"
-            className="w-full py-3 bg-purple-600 text-white font-semibold rounded-md cursor-pointer hover:bg-purple-700 transition-all duration-300"
+            className="w-full py-3 bg-purple-600  font-semibold rounded-md cursor-pointer hover:bg-purple-700 transition-all duration-300"
           >
             Register
           </button>
         </form>
 
         <div className="flex items-center justify-center gap-3">
-          <div className="w-full h-px bg-gray-300"></div>
-          <p className="text-sm text-gray-500">OR</p>
-          <div className="w-full h-px bg-gray-300"></div>
+          <div className="w-full h-px "></div>
+          <p className="text-sm ">OR</p>
+          <div className="w-full h-px "></div>
         </div>
 
         {/* Google Login Button */}

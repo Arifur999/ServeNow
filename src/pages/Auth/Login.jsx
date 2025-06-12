@@ -38,18 +38,18 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 via-blue-100 to-purple-100 px-4">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-lg">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r  px-4">
+      <div className="w-full max-w-md p-8 space-y-6  rounded-2xl shadow-lg">
         <h2 className="text-3xl font-bold text-center text-purple-700">
           Welcome Back!
         </h2>
-        <p className="text-center text-sm text-gray-500">Sign in to continue</p>
+        <p className="text-center text-sm ">Sign in to continue</p>
 
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
             <label
               htmlFor="email"
-              className="block mb-1 text-sm font-medium text-gray-700"
+              className="block mb-1 text-sm font-medium "
             >
               Email
             </label>
@@ -66,7 +66,7 @@ const Login = () => {
           <div>
             <label
               htmlFor="password"
-              className="block mb-1 text-sm font-medium text-gray-700"
+              className="block mb-1 text-sm font-medium"
             >
               Password
             </label>
@@ -87,7 +87,7 @@ const Login = () => {
                   onChange={() => setShowPassword(!showPassword)}
                   className="mr-2"
                 />
-                <label htmlFor="togglePassword" className="text-gray-600">
+                <label htmlFor="togglePassword" className="">
                   Show Password
                 </label>
               </div>
@@ -103,7 +103,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full py-3 cursor-pointer bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 transition-all duration-300"
+            className="w-full py-3 cursor-pointer bg-purple-600  font-semibold rounded-md hover:bg-purple-700 transition-all duration-300"
           >
             Sign In
           </button>
