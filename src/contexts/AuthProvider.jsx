@@ -40,7 +40,7 @@ return()=>{
 
 // log out
 const logOut=()=>{
-  signOut(auth)
+  return signOut(auth)
 } 
 
 

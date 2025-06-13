@@ -57,10 +57,6 @@ const Navbar = () => {
               <NavLink to="/add-post" className={navLinkClass}>
                 Add Post
               </NavLink>
-
-              <NavLink to="/my-post" className={navLinkClass}>
-                My Post
-              </NavLink>
             </>
           )}
         </nav>
@@ -106,15 +102,12 @@ const Navbar = () => {
               </NavLink>
             </>
           ) : (
-            <div
-              className="relative group"
-              onMouseEnter={() => setHover(true)}
-              onMouseLeave={() => setHover(false)}
-            >
+            <div className="relative">
               <img
                 src={user?.photoURL}
                 referrerPolicy="no-referrer"
                 alt="profile"
+                onClick={() => setHover(!hover)}
                 className="w-10 h-10 rounded-full border-2 border-white cursor-pointer"
                 data-tooltip-id="navbar-tooltip"
                 data-tooltip-content={user.displayName || "User"}
@@ -125,9 +118,15 @@ const Navbar = () => {
                   <p className="text-xs text-gray-500 dark:text-gray-300 mb-3">
                     {user.email}
                   </p>
+                  <NavLink
+                    to="/my-post"
+                    className="block w-full text-center mb-2 px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                  >
+                    My Post
+                  </NavLink>
                   <button
                     onClick={handleLogout}
-                    className="w-full px-4 py-2 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+                    className="w-full px-4 py-2 text-sm bg-red-500 text-white rounded-md cursor-pointer hover:bg-red-600 transition"
                   >
                     <FiLogOut className="inline mr-2" /> Logout
                   </button>
@@ -210,16 +209,13 @@ const Navbar = () => {
             </label>
 
             {user && (
-              <div
-                className="relative"
-                onMouseEnter={() => setHover(true)}
-                onMouseLeave={() => setHover(false)}
-              >
+              <div className="relative">
                 <img
                   src={user?.photoURL}
                   alt="profile"
                   className="w-10 h-10 rounded-full border-2 border-white cursor-pointer"
                   referrerPolicy="no-referrer"
+                  onClick={() => setHover(!hover)}
                 />
                 {hover && (
                   <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 text-black dark:text-white rounded shadow-md z-50 p-3">
