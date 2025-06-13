@@ -9,14 +9,18 @@ import MyPosts from "../pages/Home/MyPosts";
 import PostDetails from "../pages/Home/PostDetails";
 import PrivateRoute from "../components/PrivateRoute";
 import UpdatePost from "../pages/Home/UpdatePost";
+import ErrorPage from "../components/ErrorPage";
+import Spinner from "../components/Spinner";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
+    errorElement:<ErrorPage></ErrorPage>,
     children: [
       {
         index: true,
+        hydrateFallbackElement:Spinner,
         loader: () => fetch("http://localhost:3000/posts/limited"),
         Component: Home,
       },

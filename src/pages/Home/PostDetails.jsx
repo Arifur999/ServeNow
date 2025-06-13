@@ -3,26 +3,44 @@ import { useEffect, useState, useContext } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../contexts/AuthContext";
 import VolunteerModal from "./VolunteerModal";
+import NotFound from "../../components/NotFound";
 
 const PostDetails = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState(false);
   const { user } = useContext(AuthContext);
 
-  const fetchPostDetails = () => {
+ const fetchPostDetails = () => {
     fetch(`http://localhost:3000/posts/${id}`)
-      .then((res) => res.json())
-      .then((data) => setPost(data))
-      .catch((err) => console.error("Error loading post:", err));
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Invalid post ID");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setPost(data);
+        setError(false);
+      })
+      .catch((err) => {
+        console.error("Error loading post:", err);
+        setError(true);
+      });
   };
 
   useEffect(() => {
     fetchPostDetails();
   }, [id]);
 
-  if (!post) return <div className="text-center py-10">Loading...</div>;
+  if (error) {
+    return <NotFound message="Post not found or invalid ID." />;
+  }
 
+  if (!post) {
+    return <div className="text-center py-10">Loading...</div>;
+  }
   const {
     thumbnail,
     title,
