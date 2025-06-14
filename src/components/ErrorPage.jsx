@@ -21,7 +21,7 @@ const ErrorPage = () => {
 
         {status === 404 ? (
           <img
-            src="/src/assets/404page.jpg"
+            src="/404page.jpg"
             alt="404 - Not Found"
             className="w-full max-h-72 object-contain rounded-xl mx-auto"
           />

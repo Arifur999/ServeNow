@@ -14,7 +14,7 @@ const PostDetails = () => {
   const { user } = useContext(AuthContext);
 
  const fetchPostDetails = () => {
-    fetch(`http://localhost:3000/posts/${id}`)
+    fetch(`https://assingment-11-server-iota.vercel.app/posts/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Invalid post ID");

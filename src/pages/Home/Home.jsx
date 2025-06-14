@@ -7,7 +7,6 @@ import ShowAllPost from "./ShowAllPost";
 import { Helmet } from "react-helmet-async";
 const Home = () => {
   const posts = useLoaderData();
-
   return (
     <div>
       <Helmet>

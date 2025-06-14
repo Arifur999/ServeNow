@@ -32,7 +32,7 @@ const AddPost = () => {
     };
 
     try {
-      const res = await fetch('http://localhost:3000/posts', {
+      const res = await fetch('https://assingment-11-server-iota.vercel.app/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

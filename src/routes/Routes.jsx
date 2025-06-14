@@ -11,6 +11,7 @@ import PrivateRoute from "../components/PrivateRoute";
 import UpdatePost from "../pages/Home/UpdatePost";
 import ErrorPage from "../components/ErrorPage";
 import Spinner from "../components/Spinner";
+import MyRequests from "../pages/Home/MyRequests";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
       {
         index: true,
         hydrateFallbackElement:Spinner,
-        loader: () => fetch("http://localhost:3000/posts/limited"),
+        loader: () => fetch("https://assingment-11-server-iota.vercel.app/posts/limited"),
         Component: Home,
       },
       {
@@ -57,6 +58,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyPosts></MyPosts>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-request",
+        element: (
+          <PrivateRoute>
+            <MyRequests></MyRequests>
           </PrivateRoute>
         ),
       },

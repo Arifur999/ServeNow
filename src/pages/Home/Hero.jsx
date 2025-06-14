@@ -45,7 +45,7 @@ const Hero = () => {
         modules={[Navigation, Pagination, Autoplay]}
         className="w-full h-full"
       >
-        {["/src/assets/bn1.jpeg", "/src/assets/bn2.jpeg", "/src/assets/bn3.jpeg", "/src/assets/bn4.jpeg", "/src/assets/bn5.jpeg"].map((img, idx) => (
+        {["/bn1.jpeg", "/bn2.jpeg", "/bn3.jpeg", "/bn4.jpeg", "/bn5.jpeg"].map((img, idx) => (
           <SwiperSlide key={idx}>
             <div className="relative w-full h-full">
               <img

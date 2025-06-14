@@ -5,7 +5,7 @@ import { FiLogOut } from "react-icons/fi";
 import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
 import "react-tooltip/dist/react-tooltip.css";
-import logo from "../assets/logo_no_bg.png";
+import logo from "/logo_no_bg.png";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -123,6 +123,12 @@ const Navbar = () => {
                     className="block w-full text-center mb-2 px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
                   >
                     My Post
+                  </NavLink>
+                  <NavLink
+                    to="/my-request"
+                    className="block w-full text-center mb-2 px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                  >
+                    My Requests
                   </NavLink>
                   <button
                     onClick={handleLogout}

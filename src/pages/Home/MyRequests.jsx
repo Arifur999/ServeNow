@@ -11,7 +11,7 @@ const MyRequests = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/volunteer-requests?email=${user.email}`, {
+    fetch(`https://assingment-11-server-iota.vercel.app/volunteer-requests?email=${user.email}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +39,7 @@ const MyRequests = () => {
       cancelButtonText: "No",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/volunteer-requests/${id}`, {
+        fetch(`https://assingment-11-server-iota.vercel.app/volunteer-requests/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

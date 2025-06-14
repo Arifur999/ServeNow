@@ -15,7 +15,7 @@ const AllPosts = () => {
     const fetchPosts = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/posts?search=${searchTerm}`
+          `https://assingment-11-server-iota.vercel.app/posts?search=${searchTerm}`
         );
         const data = await res.json();
         setPosts(data);

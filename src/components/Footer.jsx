@@ -7,7 +7,7 @@ import {
   FaLock,
 } from "react-icons/fa";
 import { FiZap } from "react-icons/fi";
-import logo from "../assets/logo_no_bg.png"
+import logo from "/logo_no_bg.png"
 import { Link } from "react-router";
 
 const Footer = () => {
