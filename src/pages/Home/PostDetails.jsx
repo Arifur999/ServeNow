@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../../contexts/AuthContext";
 import VolunteerModal from "./VolunteerModal";
 import NotFound from "../../components/NotFound";
+import { Helmet } from "react-helmet-async";
 
 const PostDetails = () => {
   const { id } = useParams();
@@ -63,6 +64,9 @@ const PostDetails = () => {
 
   return (
     <div >
+      <Helmet>
+      <title>SERVE NOW || Details</title>
+    </Helmet>
             <h1 className="text-4xl flex justify-center items-center w-full text-pink-600 pt-6">volunteer Details</h1>
 
     <div className="max-w-3xl mx-auto  shadow-md rounded p-6 my-8">

@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
 import Spinner from "../../components/Spinner";
+import { Helmet } from "react-helmet-async";
 
 const UpdatePost = () => {
   const { id } = useParams();
@@ -65,6 +66,10 @@ const handleSubmit = (e) => {
   if (!formData) return <p>Post not found.</p>;
 
   return (
+    <>
+    <Helmet>
+      <title>SERVE NOW || Update</title>
+    </Helmet>
     <div className="w-11/12 max-w-2xl mx-auto p-6 shadow-md  rounded-md mt-6">
       <h2 className="text-2xl font-semibold mb-4 text-center">Update Volunteer Post</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -145,6 +150,7 @@ const handleSubmit = (e) => {
         </button>
       </form>
     </div>
+    </>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { use, useEffect, useState } from "react";
 import { FaThLarge, FaList, FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext";
+import { Helmet } from "react-helmet-async";
 
 const AllPosts = () => {
     const {_id}=use(AuthContext)
@@ -27,6 +28,10 @@ const AllPosts = () => {
   }, [searchTerm]);
 
   return (
+    <>
+    <Helmet>
+      <title>SERVE NOW || All Post</title>
+    </Helmet>
     <div className="p-4 max-w-7xl mx-auto">
       {/* Header with controls */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
@@ -148,6 +153,7 @@ const AllPosts = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

@@ -4,11 +4,15 @@ import ExtraSection1 from "./ExtraSection1";
 import ExtraSection2 from "./ExtraSection2";
 import { Link, useLoaderData } from "react-router";
 import ShowAllPost from "./ShowAllPost";
+import { Helmet } from "react-helmet-async";
 const Home = () => {
   const posts = useLoaderData();
 
   return (
     <div>
+      <Helmet>
+      <title>SERVE NOW || Home</title>
+    </Helmet>
       <Hero></Hero>
       <div>
         <h2 className="text-5xl font-bold text-center text-pink-600 lg:mt-10 mt-2 py-4">

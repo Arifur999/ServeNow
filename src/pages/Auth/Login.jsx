@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext";
 import GoogleLogin from "../../components/GoogleLogin";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { signinUser } = useContext(AuthContext);
@@ -38,6 +39,10 @@ const Login = () => {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>SERVE NOW || Login</title>
+    </Helmet>
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r  px-4">
       <div className="w-full max-w-md p-8 space-y-6  rounded-2xl shadow-lg">
         <h2 className="text-3xl font-bold text-center text-purple-700">
@@ -130,7 +135,9 @@ const Login = () => {
         </p>
       </div>
     </div>
+    </>
   );
+
 };
 
 export default Login;

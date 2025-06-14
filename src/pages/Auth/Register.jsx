@@ -4,6 +4,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import GoogleLogin from "../../components/GoogleLogin";
 import Swal from "sweetalert2";
 import { updateProfile } from "firebase/auth";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
@@ -50,6 +51,10 @@ const Register = () => {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>SERVE NOW || Sign in</title>
+    </Helmet>
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r  px-4">
       <div className="w-full max-w-md p-8 space-y-6  rounded-2xl shadow-lg my-6">
         <h2 className="text-3xl font-bold text-center text-purple-700">
@@ -167,6 +172,7 @@ const Register = () => {
         </p>
       </div>
     </div>
+    </>
   );
 };
 

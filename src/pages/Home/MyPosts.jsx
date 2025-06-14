@@ -6,6 +6,7 @@ import { Link } from "react-router"; // fixed here
 import { AuthContext } from "../../contexts/AuthContext";
 import Spinner from "../../components/Spinner";
 import MyRequests from "./MyRequests";
+import { Helmet } from "react-helmet-async";
 
 const MyPosts = () => {
   const { user, loading } = useContext(AuthContext);
@@ -67,6 +68,10 @@ const MyPosts = () => {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>SERVE NOW || My Post</title>
+    </Helmet>
     <div className="container  p-4 w-11/12 mx-auto  min-h-[50vh]">
       <h1 className="text-3xl font-semibold mb-6 text-center text-pink-500">
         Manage My Posts
@@ -134,6 +139,7 @@ const MyPosts = () => {
         </TabPanel>
       </Tabs>
     </div>
+    </>
   );
 };
 
