@@ -1,3 +1,5 @@
+import React from "react";
+import { motion } from "framer-motion";
 
 const ExtraSection1 = () => {
 
@@ -47,36 +49,60 @@ const teamMembers = [
 
 
     return (
-        <div>
+    <div>
+      <motion.section
+        className="py-16 text-center"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="max-w-6xl mx-auto px-4">
+          <motion.h2
+            className="text-4xl font-bold mb-4 text-pink-500"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            Meet Our Core Team
+          </motion.h2>
+          <motion.p
+            className="mb-12 max-w-xl mx-auto text-gray-600"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            Behind ServeNow is a group of passionate individuals dedicated to
+            empowering volunteers, organizing impactful campaigns, and building
+            bridges between communities and causes.
+          </motion.p>
 
-    <section className="py-16 text-center">
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-4xl font-bold  mb-4 text-pink-500">Meet Our Core Team</h2>
-        <p className=" mb-12 max-w-xl mx-auto">
-          Behind ServeNow is a group of passionate individuals dedicated to empowering volunteers, organizing impactful campaigns, and building bridges between communities and causes.
-        </p>
-        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {teamMembers.map((member, index) => (
-            <div
-              key={index}
-              className=" border border-gray-200 rounded-2xl shadow-md p-6 hover:shadow-lg transition duration-300"
-            >
-              <img
-                src={member.photo}
-                alt={member.name}
-                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-blue-200"
-              />
-              <h3 className="text-lg font-semibold ">{member.name}</h3>
-              <p className="text-sm  mt-1">{member.role}</p>
-            </div>
-          ))}
+          <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {teamMembers.map((member, index) => (
+              <motion.div
+                key={index}
+                className="border border-gray-200 rounded-2xl shadow-md p-6 hover:shadow-lg transition duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <img
+                  src={member.photo}
+                  alt={member.name}
+                  className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-blue-200"
+                />
+                <h3 className="text-lg font-semibold">{member.name}</h3>
+                <p className="text-sm mt-1 text-gray-500">{member.role}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-
-
-        </div>
-    );
+      </motion.section>
+    </div>
+  );
 };
 
 export default ExtraSection1;
