@@ -61,7 +61,7 @@ const VolunteerModal = ({ post, onClose }) => {
         </button>
         <h2 className="text-xl font-bold mb-4">Be a Volunteer</h2>
 
-        <div className="space-y-2 text-sm">
+        <div className="space-y-2 text-black">
           <p><strong>Title:</strong> {post.title}</p>
           <p><strong>Category:</strong> {post.category}</p>
           <p><strong>Description:</strong> {post.description}</p>

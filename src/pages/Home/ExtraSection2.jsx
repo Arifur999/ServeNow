@@ -47,7 +47,7 @@ const ExtraSection2 = () => {
             }].map((item, idx) => (
               <motion.div
                 key={idx}
-                className="shadow-md rounded-lg p-6 bg-white"
+                className="shadow-md rounded-lg p-6 "
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: idx * 0.2 }}
