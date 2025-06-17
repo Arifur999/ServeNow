@@ -6,6 +6,7 @@ import { Link, useLoaderData } from "react-router";
 import ShowAllPost from "./ShowAllPost";
 import { Helmet } from "react-helmet-async";
 import { motion } from 'framer-motion';
+import ExtraSection3 from "./ExtraSection3";
 
 const Home = () => {
   const posts = useLoaderData();
@@ -58,6 +59,7 @@ const Home = () => {
       {/* Extra sections */}
       <ExtraSection1 />
       <ExtraSection2 />
+      <ExtraSection3></ExtraSection3>
     </div>
   );
 };
