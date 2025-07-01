@@ -15,7 +15,7 @@ const UpdatePost = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://assingment-11-server-iota.vercel.app/posts/${id}`)
+    fetch(`https://b11a11-server-side-arifur999.vercel.app/posts/${id}`)
       .then((res) => res.json())
       .then((data) => {
         data.deadline = new Date(data.deadline); 
@@ -42,7 +42,7 @@ const UpdatePost = () => {
 const handleSubmit = (e) => {
   e.preventDefault();
 
-  fetch(`https://assingment-11-server-iota.vercel.app/posts/${id}`, {
+  fetch(`https://b11a11-server-side-arifur999.vercel.app/posts/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData),

@@ -12,6 +12,9 @@ import UpdatePost from "../pages/Home/UpdatePost";
 import ErrorPage from "../components/ErrorPage";
 import Spinner from "../components/Spinner";
 import MyRequests from "../pages/Home/MyRequests";
+import About from "../pages/About";
+import Contact from "../pages/Home/Contact";
+import FAQ from "../pages/Home/FAQ";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +25,7 @@ const router = createBrowserRouter([
       {
         index: true,
         hydrateFallbackElement:Spinner,
-        loader: () => fetch("https://assingment-11-server-iota.vercel.app/posts/limited"),
+        loader: () => fetch("https://b11a11-server-side-arifur999.vercel.app/posts/limited"),
         Component: Home,
       },
       {
@@ -52,6 +55,18 @@ const router = createBrowserRouter([
       {
         path: "/all-post",
         Component: AllPosts,
+      },
+      {
+        path: "/about",
+        Component: About,
+      },
+      {
+        path: "/faq",
+        Component:FAQ ,
+      },
+      {
+        path: "/contact",
+        Component: Contact,
       },
       {
         path: "/my-post",

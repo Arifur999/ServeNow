@@ -28,7 +28,7 @@ const VolunteerModal = ({ post, onClose }) => {
       status: "requested",
     };
 
-    fetch(`https://assingment-11-server-iota.vercel.app/volunteer-requests/${post._id}`, {
+    fetch(`https://b11a11-server-side-arifur999.vercel.app/volunteer-requests/${post._id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(volunteerData),

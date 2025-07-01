@@ -32,7 +32,7 @@ const AddPost = () => {
     };
 
     try {
-      const res = await fetch('https://assingment-11-server-iota.vercel.app/posts', {
+      const res = await fetch('https://b11a11-server-side-arifur999.vercel.app/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

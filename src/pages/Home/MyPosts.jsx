@@ -16,7 +16,7 @@ const MyPosts = () => {
 
     console.log("Fetching posts for:", user.email);
 
-    fetch(`https://assingment-11-server-iota.vercel.app/volunteer-posts?email=${user.email}`, {
+    fetch(`https://b11a11-server-side-arifur999.vercel.app/volunteer-posts?email=${user.email}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ const MyPosts = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://assingment-11-server-iota.vercel.app/volunteer-posts/${id}`, {
+        fetch(`https://b11a11-server-side-arifur999.vercel.app/volunteer-posts/${id}`, {
           method: "DELETE",
         })
           .then((res) => {

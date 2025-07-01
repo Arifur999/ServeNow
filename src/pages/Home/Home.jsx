@@ -10,7 +10,7 @@ import ExtraSection3 from "./ExtraSection3";
 
 const Home = () => {
   const posts = useLoaderData();
-
+console.log(posts);
   return (
     <div>
       <Helmet>
@@ -34,7 +34,7 @@ const Home = () => {
         </p>
 
         <motion.div
-          className="max-w-6xl mx-auto px-4 py-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="max-w-6xl mx-auto px-4 py-10 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.6 }}
