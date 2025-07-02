@@ -46,7 +46,7 @@ const Hero = () => {
           <MotionLink
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            to="/"
+            to="/all-post"
             className="inline-block mt-4 px-6 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-semibold shadow-md transition"
           >
             Get Started

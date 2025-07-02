@@ -31,7 +31,7 @@ const Footer = () => {
           <div className="space-y-3">
             <h3 className="uppercase font-semibold">Product</h3>
             <ul className="space-y-1">
-              <li><Link to="/all-post">All Posts</Link></li>
+              <li><Link to="/all-post"j>All Posts</Link></li>
               <li><Link to="/about">About</Link></li>
               <li><Link to="/contact">Contact</Link></li>
               <li><Link to="/faq">FAQ</Link></li>
