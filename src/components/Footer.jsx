@@ -12,7 +12,7 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="px-4 divide-y bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+    <footer className="px-4 divide-y bg-gradient-to-r from-purple-800 via-indigo-900 to-blue-900 dark:text-gray-100">
       <div className="container lg:w-10/12 flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row border-none lg:space-y-0">
         <div className="lg:w-1/3">
           <Link
