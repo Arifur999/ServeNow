@@ -14,7 +14,7 @@ const ExtraSection2 = () => {
       >
         <div className="max-w-6xl mx-auto px-4">
           <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-6 text-pink-500"
+            className="text-5xl md:text-4xl font-bold mb-6 text-pink-500"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}

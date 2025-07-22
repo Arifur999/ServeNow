@@ -6,7 +6,7 @@ const ContactUs = () => {
   return (
     <section className="min-h-screen py-16 px-6 md:px-20">
       <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-3">
+        <h1 className="text-5xl md:text-5xl font-bold mb-3">
           Contact <span className="text-pink-400"  >Us</span>
         </h1>
         <p className="text-lg  max-w-2xl mx-auto">
