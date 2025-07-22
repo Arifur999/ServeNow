@@ -22,7 +22,7 @@ const ExtraSection2 = () => {
             Our Mission
           </motion.h2>
           <motion.p
-            className="mb-10 text-lg text-gray-700"
+            className="mb-10 text-lg "
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -56,7 +56,7 @@ const ExtraSection2 = () => {
               >
                 {item.icon}
                 <h3 className="text-xl font-semibold">{item.title}</h3>
-                <p className="mt-2 text-gray-600">{item.desc}</p>
+                <p className="mt-2 ">{item.desc}</p>
               </motion.div>
             ))}
           </div>

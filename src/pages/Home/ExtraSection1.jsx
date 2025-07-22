@@ -67,7 +67,7 @@ const teamMembers = [
             Meet Our Core Team
           </motion.h2>
           <motion.p
-            className="mb-12 max-w-xl mx-auto text-gray-600"
+            className="mb-12 max-w-xl mx-auto "
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -95,7 +95,7 @@ const teamMembers = [
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-blue-200"
                 />
                 <h3 className="text-lg font-semibold">{member.name}</h3>
-                <p className="text-sm mt-1 text-gray-500">{member.role}</p>
+                <p className="text-sm mt-1 ">{member.role}</p>
               </motion.div>
             ))}
           </div>
